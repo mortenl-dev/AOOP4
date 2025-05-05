@@ -37,55 +37,95 @@
             </ListBox>
 
             <!-- Recipe Details -->
-            <Border Grid.Column="1"
-                    BorderBrush="Gray"
-                    BorderThickness="1"
-                    Padding="20"
-                    CornerRadius="5">
-                <ScrollViewer>
-                    <StackPanel Spacing="10">
-                        <TextBlock Text="{Binding SelectedRecipe.Name}"
-                                 FontSize="20"
-                                 FontWeight="Bold"/>
-                        
-                        <StackPanel Orientation="Horizontal" Spacing="10">
-                            <TextBlock Text="Difficulty:"
-                                     FontWeight="SemiBold"/>
-                            <TextBlock Text="{Binding SelectedRecipe.Difficulty}"/>
+            <Grid Grid.Column="1" RowDefinitions="*,Auto">
+                <Border Grid.Row="0"
+                        BorderBrush="Gray"
+                        BorderThickness="1"
+                        Padding="20"
+                        Margin="0,0,0,10"
+                        CornerRadius="5">
+                    <ScrollViewer>
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="{Binding SelectedRecipe.Name}"
+                                     FontSize="20"
+                                     FontWeight="Bold"/>
+                            
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <TextBlock Text="Difficulty:"
+                                         FontWeight="SemiBold"/>
+                                <TextBlock Text="{Binding SelectedRecipe.Difficulty}"/>
+                            </StackPanel>
+
+                            <TextBlock Text="Equipment Needed:"
+                                     FontWeight="SemiBold"
+                                     Margin="0,10,0,5"/>
+                            <ItemsControl ItemsSource="{Binding SelectedRecipe.Equipment}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" Margin="20,0,0,0"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <TextBlock Text="Steps:"
+                                     FontWeight="SemiBold"
+                                     Margin="0,10,0,5"/>
+                            <ItemsControl ItemsSource="{Binding SelectedRecipe.Steps}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid ColumnDefinitions="*,Auto" Margin="20,5,0,5">
+                                            <TextBlock Grid.Column="0" 
+                                                     Text="{Binding StepDescription}"
+                                                     TextWrapping="Wrap"/>
+                                            <TextBlock Grid.Column="1"
+                                                     Text="{Binding Duration, StringFormat='({0} min)'}"
+                                                     Margin="10,0,0,0"
+                                                     Foreground="Gray"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <Button Content="Start Cooking"
+                                    Command="{Binding StartCookingCommand}"
+                                    IsEnabled="{Binding !IsCooking}"
+                                    HorizontalAlignment="Center"
+                                    Margin="0,20,0,0"
+                                    Padding="20,10"/>
                         </StackPanel>
+                    </ScrollViewer>
+                </Border>
 
-                        <TextBlock Text="Equipment Needed:"
-                                 FontWeight="SemiBold"
-                                 Margin="0,10,0,5"/>
-                        <ItemsControl ItemsSource="{Binding SelectedRecipe.Equipment}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding}" Margin="20,0,0,0"/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-
-                        <TextBlock Text="Steps:"
-                                 FontWeight="SemiBold"
-                                 Margin="0,10,0,5"/>
-                        <ItemsControl ItemsSource="{Binding SelectedRecipe.Steps}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid ColumnDefinitions="*,Auto" Margin="20,5,0,5">
-                                        <TextBlock Grid.Column="0" 
-                                                 Text="{Binding StepDescription}"
-                                                 TextWrapping="Wrap"/>
-                                        <TextBlock Grid.Column="1"
-                                                 Text="{Binding Duration, StringFormat='({0} min)'}"
-                                                 Margin="10,0,0,0"
-                                                 Foreground="Gray"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                <!-- Cooking Progress Section -->
+                <Border Grid.Row="1"
+                        BorderBrush="Gray"
+                        BorderThickness="1"
+                        Padding="20"
+                        CornerRadius="5"
+                        IsVisible="{Binding IsCooking}">
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="Currently Cooking..."
+                                 FontSize="16"
+                                 FontWeight="Bold"
+                                 HorizontalAlignment="Center"/>
+                        
+                        <TextBlock Text="{Binding CurrentStepDescription}"
+                                 TextWrapping="Wrap"
+                                 HorizontalAlignment="Center"/>
+                        
+                        <ProgressBar Value="{Binding CookingProgress}"
+                                   Maximum="100"
+                                   Height="20"
+                                   Margin="0,10"/>
+                        
+                        <TextBlock Text="{Binding CookingProgress, StringFormat='{}{0:F1}% Complete'}"
+                                 HorizontalAlignment="Center"/>
+                        
+                        <TextBlock Text="{Binding CurrentCookingTime, StringFormat='Time Elapsed: {0} minutes'}"
+                                 HorizontalAlignment="Center"/>
                     </StackPanel>
-                </ScrollViewer>
-            </Border>
+                </Border>
+            </Grid>
         </Grid>
     </Grid>
 

@@ -65,3 +65,4 @@ C:\Users\morte\Downloads\Coding\AOOP4\AOOP4\obj\Debug\net9.0\refint\Avalonia\AOO
 C:\Users\morte\Downloads\Coding\AOOP4\AOOP4\obj\Debug\net9.0\AOOP4.csproj.Up2Date
 C:\Users\morte\Downloads\Coding\AOOP4\AOOP4\obj\Debug\net9.0\AOOP4.genruntimeconfig.cache
 C:\Users\morte\Downloads\Coding\AOOP4\AOOP4\obj\Debug\net9.0\ref\AOOP4.dll
+C:\Users\morte\Downloads\Coding\AOOP4\AOOP4\obj\Debug\net9.0\AOOP4.sourcelink.json

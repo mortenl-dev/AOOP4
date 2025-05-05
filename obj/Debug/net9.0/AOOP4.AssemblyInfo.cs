@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AOOP4")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e64c174474942d5fc3c17e220bbbe1be25279734")]
 [assembly: System.Reflection.AssemblyProductAttribute("AOOP4")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AOOP4")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
