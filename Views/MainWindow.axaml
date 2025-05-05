@@ -1,0 +1,92 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AOOP4.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AOOP4.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Recipe Book">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,*" Margin="20">
+        <TextBlock Grid.Row="0" 
+                   Text="Recipe Book" 
+                   FontSize="24" 
+                   FontWeight="Bold" 
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,20"/>
+        
+        <Grid Grid.Row="1" ColumnDefinitions="250,*">
+            <!-- Recipe List -->
+            <ListBox Grid.Column="0"
+                     ItemsSource="{Binding Recipes}"
+                     SelectedItem="{Binding SelectedRecipe}"
+                     Margin="0,0,20,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <!-- Recipe Details -->
+            <Border Grid.Column="1"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    Padding="20"
+                    CornerRadius="5">
+                <ScrollViewer>
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="{Binding SelectedRecipe.Name}"
+                                 FontSize="20"
+                                 FontWeight="Bold"/>
+                        
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <TextBlock Text="Difficulty:"
+                                     FontWeight="SemiBold"/>
+                            <TextBlock Text="{Binding SelectedRecipe.Difficulty}"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Equipment Needed:"
+                                 FontWeight="SemiBold"
+                                 Margin="0,10,0,5"/>
+                        <ItemsControl ItemsSource="{Binding SelectedRecipe.Equipment}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" Margin="20,0,0,0"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <TextBlock Text="Steps:"
+                                 FontWeight="SemiBold"
+                                 Margin="0,10,0,5"/>
+                        <ItemsControl ItemsSource="{Binding SelectedRecipe.Steps}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="*,Auto" Margin="20,5,0,5">
+                                        <TextBlock Grid.Column="0" 
+                                                 Text="{Binding StepDescription}"
+                                                 TextWrapping="Wrap"/>
+                                        <TextBlock Grid.Column="1"
+                                                 Text="{Binding Duration, StringFormat='({0} min)'}"
+                                                 Margin="10,0,0,0"
+                                                 Foreground="Gray"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
+
+</Window>
